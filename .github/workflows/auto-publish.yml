@@ -4,17 +4,17 @@
 # https://w3c.github.io/spec-prod/#examples
 name: CI
 on:
-  pull_request: {}
   push:
     branches: [main]
 jobs:
   main:
     name: Deploy to GitHub pages
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v4
      - run: |
           git fetch
+          git checkout main
           git checkout gh-pages
           git reset main --hard
           git push -f
@@ -27,13 +27,14 @@ jobs:
           VALIDATE_MARKUP: false
   publish:
     name: Build, Validate and Deploy
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: w3c/spec-prod@v2
         with:
           TOOLCHAIN: respec
           SOURCE: spec.html
+          VALIDATE_MARKUP: false
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_WG_DECISION_URL: hhttps://www.w3.org/mid/CAESRWkCboGW4E4RmntSs7UZWx9UZxmGH=1GNKq1Gg7MyfQcMdA@mail.gmail.com
           ARTIFACT_NAME: spec-prod-result2

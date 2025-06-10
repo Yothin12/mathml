@@ -221,21 +221,13 @@ S                  := [ \t\n\r]*
    but as with any properties, is by default ignored but may have a
    system-specific effect.</p>
 
-    <p>As with [=Concepts=], The Working group maintains two lists
-      of [=property=] values.</p>
+    <p>Similar to the lists of [=Concepts=], the Working Group maintains a [=Properties list=] of [=property=] values that should be implemented.</p>
     <ul>
-      <li><dfn id="intent-core-properties">Core properties</dfn>: This is a
-      <a href="https://w3c.github.io/mathml-docs/intent-core-properties">list core of properties</a>
-      maintained by the Math Working Group</li>
-       <li><dfn id="intent-open-properties">Open properties</dfn>: This is an
-      <a href="https://w3c.github.io/mathml-docs/intent-open-properties">open list of properties</a>
-      with contributions welcome from the community.
-      Implementors of MathML systems that implement additional properties are encouraged
-      to make a pull request to add them to the list of  [=Open Properties=].</li>
+      <li><dfn id="intent-core-properties">Properties list</dfn>: The definitive
+      <a href="https://w3c.github.io/mathml-docs/intent-core-properties">list of properties</a>
+      maintained by the Math Working Group.</li>
     </ul>
-   <p>The definitive list of [=Core Properties=] is maintained at
-   Github. Here, we describe the major classes of property affecting speech generation
-   below.</p>
+    <p>Here, we describe the major classes of property affecting speech generation.</p>
    <dl>
     <dt id="intent_fixity_hint"><code>:prefix</code>,
     <code>:infix</code>, <code>:postfix</code>,
@@ -274,29 +266,32 @@ S                  := [ \t\n\r]*
      should be assumed. See the examples in <a href="#mixing_intent_warning"></a>.</li>
      </ul>
     </dd>
-    <dt id="intent_literal_property"><code>:literal</code></dt>
+    <dt><span id="intent_literal_property"><code>:literal</code></span>, <span id="intent_common_property"><code>:common</code></span>, <span id="intent_legacy_property"><code>:legacy</code></span></dt>
     <dd>
-      <p>This property requests that the AT should not infer any semantics
-      and just speak the elements with a literal interpretation, including leaf content (eg <q>|</q> might be spoken as <q>vertical bar</q>).</p>
+     <p>These properties control the overall style of generated speech.
+     The detailed description in each case is available <a href="https://w3c.github.io/mathml-docs/literal-common-properties">in a separate document</a>.</p>
+     <p><code>:literal</code> requests that the AT should not infer any semantics
+      and just speak the elements with a literal interpretation, including leaf content (eg <q>|</q> might be spoken as <q>vertical bar</q>). <code>:common</code> requests use of a specified set of heuristics do allow intents to be inferred for common notations. <code>:legacy</code> requests system-specific behavior.</p>
     </dd>
     <dt id="intent_table_properties"><code>:matrix</code>,
-    <code>:system-of-equations</code>, <code>:lines</code>, <code>:continued-equation</code></dt>
+    <code>:system-of-equations</code>, <code>:lines</code>, <code>:continued-row</code>, <code>:equation-label</code></dt>
     <dd>
      <p>These properties may be used on an <code>mtable</code> or on a
-    [=reference=] to an <code>mtable</code>. They affect the way the
-     parts of an alignment are announced.</p>
-     <p>The exact wordings used are system specfic</p>
+       [=reference=] to an <code>mtable</code>, <code>mtr</code> and <code>mtd</code>.
+     They affect the way the parts of an alignment are announced.</p>
+     <p>The exact wordings used are system specfic.</p>
      <ul>
       <li><code>:matrix</code>
-     should be read in style suitable for matricies, with typically
+     should be read in style suitable for matrices, with typically
       column numbers being announced.</li>
       <li><code>:system-of-equations</code> should be read in style suitable for
       displayed equations (and inequalities), with typically
       column numbers not being announced. Each table row would
       normally be announced as an "equation" but a
-      `continued-equation` property on an <code>mtr</code> indicates
+      `continued-row` property on an <code>mtr</code> indicates
       that the row continues an equation wrapped from the row
-      above.</li>
+	above.</li>
+      <li><code>:equation-label</code> may be used on an <code>mtd</code> to mark a cell containing an equation label.</li>
      </ul>
     </dd>
    </dl>
@@ -707,7 +702,7 @@ equation 2; y, is greater than, x minus 3;
       &lt;mi>d&lt;/mi>
     &lt;/mtd>
   &lt;/mtr>
-  &lt;mtr intent=':continued-equation'>
+  &lt;mtr intent=':continued-row'>
     &lt;mtd columnalign="right">&lt;/mtd>
     &lt;mtd columnalign="center">&lt;/mtd>
     &lt;mtd columnalign="left">
